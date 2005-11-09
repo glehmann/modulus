@@ -1,5 +1,5 @@
 #Change PROJECT_NAME to the name of your project
-PROJECT(PROJECT_NAME)
+PROJECT(modulus)
 
 #include some macros from another file...
 INCLUDE(IJMacros.txt)
@@ -35,8 +35,8 @@ SET(Libraries
 #MyExe will be built using the files MyClass.h and MyClass.cxx, and it will
 #be linked to all the libraries you specified above. 
 #You can build more than one executable per project
-SET(CurrentExe "MyExe")
-ADD_EXECUTABLE(${CurrentExe} MyClass.h MyClass.cxx) 
+SET(CurrentExe "modulus")
+ADD_EXECUTABLE(${CurrentExe} modulus.cxx) 
 TARGET_LINK_LIBRARIES(${CurrentExe} ${Libraries})
 
 #the following line is an example of how to add a test to your project.
@@ -45,5 +45,6 @@ TARGET_LINK_LIBRARIES(${CurrentExe} ${Libraries})
 #project or an external executable.  After that list any args that are needed
 #for this test.  Include as many tests as you like.  If your project doesn't have
 #any tests you can comment out or delete the following line.
-ADD_TEST(Testname ExecutableToRun arg1 arg2 arg3)
-ADD_TEST(CompareImage ImageCompare ${CMAKE_SOURCE_DIR}/img1.png ${CMAKE_SOURCE_DIR}/img1.png.base.png)
+
+ADD_TEST(Modulus modulus ${CMAKE_SOURCE_DIR}/Spots.png out.png)
+ADD_TEST(CompareImage ImageCompare out.png ${CMAKE_SOURCE_DIR}/modulus.png)
