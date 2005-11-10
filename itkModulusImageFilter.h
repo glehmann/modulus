@@ -44,7 +44,7 @@ private:
 
 
 /** \class ModulusImageFilter
- * \brief Computes the modulus pixel-wise
+ * \brief Computes the modulus (x % dividend) pixel-wise
  *
  * The input pixel type must support the c++ modulus operator (%).
  *
@@ -78,6 +78,7 @@ public:
   /** Method for creation through the object factory. */
   itkNewMacro(Self);
   
+  /** Set/Get the dividend */
   itkSetMacro( Dividend, InputPixelType );
   itkGetConstReferenceMacro( Dividend, InputPixelType );
 
