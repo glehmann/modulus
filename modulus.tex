@@ -1,0 +1,81 @@
+%
+% This file was automatically produced at May 13 2005, 19:50:52 by
+% c++2latex modulus.cxx
+%
+\expandafter\ifx\csname indentation\endcsname\relax%
+\newlength{\indentation}\fi
+\setlength{\indentation}{0.5em}
+\begin{flushleft}
+{\tt \#include} "{\tt{}itkImageFileReader.h}"\mbox{}\\
+{\tt \#include} "{\tt{}itkImageFileWriter.h}"\mbox{}\\
+{\tt \#include} "{\tt{}itkModulusImageFilter.h}"\mbox{}\\
+{\tt \#include} "{\tt{}itkCommand.h}"\mbox{}\\
+\mbox{}\\
+template $<$ {\bf class} TFilter $>$\mbox{}\\
+{\bf class} ProgressCallback : {\bf public} itk::Command\mbox{}\\
+\{\mbox{}\\
+{\bf public}:\mbox{}\\
+\hspace*{2\indentation}{\bf typedef} ProgressCallback   Self;\mbox{}\\
+\hspace*{2\indentation}{\bf typedef} itk::Command  Superclass;\mbox{}\\
+\hspace*{2\indentation}{\bf typedef} itk::SmartPointer$<$Self$>$  Pointer;\mbox{}\\
+\hspace*{2\indentation}{\bf typedef} itk::SmartPointer$<${\bf const} Self$>$  ConstPointer;\mbox{}\\
+\mbox{}\\
+\hspace*{2\indentation}itkTypeMacro( IterationCallback, Superclass );\mbox{}\\
+\hspace*{2\indentation}itkNewMacro( Self );\mbox{}\\
+\hspace*{2\indentation}\mbox{}\\
+\hspace*{2\indentation}{$/\ast$\it{}$\ast$ Type defining the optimizer. $\ast/$}\mbox{}\\
+\hspace*{2\indentation}{\bf typedef}    TFilter     FilterType;\mbox{}\\
+\mbox{}\\
+\hspace*{2\indentation}{$/\ast$\it{}$\ast$ Method to specify the optimizer. $\ast/$}\mbox{}\\
+\hspace*{2\indentation}{\bf void} SetFilter( FilterType $\ast$ filter )\mbox{}\\
+\hspace*{4\indentation}\{\mbox{}\\
+\hspace*{4\indentation}m\_Filter = filter;\mbox{}\\
+\hspace*{4\indentation}m\_Filter$\rightarrow$AddObserver( itk::ProgressEvent(), {\bf this} );\mbox{}\\
+\hspace*{4\indentation}\}\mbox{}\\
+\mbox{}\\
+\hspace*{2\indentation}{$/\ast$\it{}$\ast$ Execute method will print data at each iteration $\ast/$}\mbox{}\\
+\hspace*{2\indentation}{\bf void} Execute(itk::Object $\ast$caller, {\bf const} itk::EventObject \& event)\mbox{}\\
+\hspace*{4\indentation}\{\mbox{}\\
+\hspace*{4\indentation}Execute( ({\bf const} itk::Object $\ast$)caller, event);\mbox{}\\
+\hspace*{4\indentation}\}\mbox{}\\
+\hspace*{4\indentation}\mbox{}\\
+\hspace*{2\indentation}{\bf void} Execute({\bf const} itk::Object $\ast$, {\bf const} itk::EventObject \& event)\mbox{}\\
+\hspace*{4\indentation}\{\mbox{}\\
+\hspace*{4\indentation}std::cout $\ll$ m\_Filter$\rightarrow$GetNameOfClass() $\ll$ {\tt": "} $\ll$ m\_Filter$\rightarrow$GetProgress() $\ll$ std::endl;\mbox{}\\
+\hspace*{4\indentation}\}\mbox{}\\
+\mbox{}\\
+{\bf protected}:\mbox{}\\
+\hspace*{2\indentation}ProgressCallback() \{\};\mbox{}\\
+\hspace*{2\indentation}itk::WeakPointer$<$FilterType$>$   m\_Filter;\mbox{}\\
+\};\mbox{}\\
+\mbox{}\\
+\mbox{}\\
+{\bf int} main({\bf int}, {\bf char} $\ast$ argv[~])\mbox{}\\
+\{\mbox{}\\
+\hspace*{2\indentation}{\bf const} {\bf int} dim = 2;\mbox{}\\
+\hspace*{2\indentation}\mbox{}\\
+\hspace*{2\indentation}{\bf typedef} {\bf unsigned} {\bf char} PType;\mbox{}\\
+\hspace*{2\indentation}{\bf typedef} itk::Image$<$ PType, dim $>$ IType;\mbox{}\\
+\mbox{}\\
+\hspace*{2\indentation}{\bf typedef} itk::ImageFileReader$<$ IType $>$ ReaderType;\mbox{}\\
+\hspace*{2\indentation}ReaderType::Pointer reader = ReaderType::New();\mbox{}\\
+\hspace*{2\indentation}reader$\rightarrow$SetFileName( argv[1] );\mbox{}\\
+\mbox{}\\
+\hspace*{2\indentation}{\bf typedef} itk::ModulusImageFilter$<$ IType, IType $>$ FilterType;\mbox{}\\
+\hspace*{2\indentation}FilterType::Pointer filter = FilterType::New();\mbox{}\\
+\hspace*{2\indentation}filter$\rightarrow$SetInput( reader$\rightarrow$GetOutput() );\mbox{}\\
+\mbox{}\\
+\hspace*{2\indentation}{\bf typedef} ProgressCallback$<$ FilterType $>$ ProgressType;\mbox{}\\
+\hspace*{2\indentation}ProgressType::Pointer progress = ProgressType::New();\mbox{}\\
+\hspace*{2\indentation}progress$\rightarrow$SetFilter( filter );\mbox{}\\
+\mbox{}\\
+\hspace*{2\indentation}{\bf typedef} itk::ImageFileWriter$<$ IType $>$ WriterType;\mbox{}\\
+\hspace*{2\indentation}WriterType::Pointer writer = WriterType::New();\mbox{}\\
+\hspace*{2\indentation}writer$\rightarrow$SetInput( filter$\rightarrow$GetOutput() );\mbox{}\\
+\hspace*{2\indentation}writer$\rightarrow$SetFileName( argv[2] );\mbox{}\\
+\hspace*{2\indentation}writer$\rightarrow$Update();\mbox{}\\
+\mbox{}\\
+\hspace*{2\indentation}{\bf return} 0;\mbox{}\\
+\}\mbox{}\\
+\mbox{}\\
+\end{flushleft}
