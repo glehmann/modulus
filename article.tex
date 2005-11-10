@@ -1,0 +1,57 @@
+\documentclass[12pt]{article}
+\usepackage[dvips]{graphicx}
+
+\title{ModulusImageFilter} 
+\author{Ga\"etan Lehmann}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\abstract{ModulusImageFilter is a simple image filter to compute the modulus (x \% dividend) pixel-wise.}
+
+\section{Implementation}
+ModulusImageFilter is based on UnaryFunctorImageFilter and use the c++ modulus operator (\%).
+
+\section{Usage}
+\expandafter\ifx\csname indentation\endcsname\relax%
+\newlength{\indentation}\fi
+\setlength{\indentation}{0.5em}
+As usual, user has to include the header:
+\begin{flushleft}
+{\tt \#include} "{\tt{}itkModulusImageFilter.h}"\mbox{}\\
+\end{flushleft}
+and declare the type, instanciate the filter, and set the input image
+\begin{flushleft}
+{\bf typedef} itk::ModulusImageFilter$<$ InputType, OuputType $>$ ModulusType;\mbox{}\\
+ModulusType::Pointer filter = ModulusType::New();\mbox{}\\
+filter$\rightarrow$SetInput( filter$\rightarrow$GetOutput() );\mbox{}\\
+\end{flushleft}
+
+The dividend can be set with the SetDividend() method, and read with GetDividend(). The default value is 5.
+
+\begin{flushleft}
+filter$\rightarrow$SetDividend( 12 );\mbox{}\\
+\end{flushleft}
+
+\section{Example}
+\begin{figure}
+\centering
+\includegraphics[width=0.5\textwidth]{Spots.eps}
+\caption{The input image.}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.5\textwidth]{distance.eps}
+\caption{The (rescaled) distance map image.}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.5\textwidth]{modulus.eps}
+\caption{The (rescaled) output image.}
+\end{figure}
+
+\end{document}
