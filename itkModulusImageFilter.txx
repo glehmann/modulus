@@ -33,7 +33,7 @@ template <class TInputImage, class TOutputImage>
 ModulusImageFilter<TInputImage, TOutputImage>
 ::ModulusImageFilter()
 {
-  m_Modulus = 5;
+  m_Dividend = 5;
 }
 
 template <class TInputImage, class TOutputImage>
@@ -41,7 +41,7 @@ void
 ModulusImageFilter<TInputImage, TOutputImage>
 ::BeforeThreadedGenerateData()
 {
-  this->GetFunctor().SetModulus(m_Modulus);
+  this->GetFunctor().SetDividend(m_Dividend);
 }
 
 /**
@@ -54,8 +54,8 @@ ModulusImageFilter<TInputImage, TOutputImage>
 {
   Superclass::PrintSelf(os,indent);
 
-  os << indent << "Modulus: "
-     << static_cast<typename NumericTraits<InputPixelType>::PrintType>(m_Modulus)
+  os << indent << "Dividend: "
+     << static_cast<typename NumericTraits<InputPixelType>::PrintType>(m_Dividend)
      << std::endl;
 }
 

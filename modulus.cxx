@@ -1,7 +1,10 @@
 #include "itkImageFileReader.h"
 #include "itkImageFileWriter.h"
 #include "itkModulusImageFilter.h"
+#include "itkDanielssonDistanceMapImageFilter.h"
+#include "itkRescaleIntensityImageFilter.h"
 #include "itkCommand.h"
+#include "itkNumericTraits.h"
 
 template < class TFilter >
 class ProgressCallback : public itk::Command
@@ -53,18 +56,35 @@ int main(int, char * argv[])
   ReaderType::Pointer reader = ReaderType::New();
   reader->SetFileName( argv[1] );
 
+  // get the distance map inside the spots
+  // spot are already black so there is no need to invert the image
+  typedef itk::DanielssonDistanceMapImageFilter< IType, IType > DistanceFilter;
+  DistanceFilter::Pointer distance = DistanceFilter::New();
+  distance->SetInput( reader->GetOutput() );
+
   typedef itk::ModulusImageFilter< IType, IType > FilterType;
   FilterType::Pointer filter = FilterType::New();
-  filter->SetInput( reader->GetOutput() );
+  filter->SetInput( distance->GetOutput() );
+  filter->SetDividend( 8 );
 
   typedef ProgressCallback< FilterType > ProgressType;
   ProgressType::Pointer progress = ProgressType::New();
   progress->SetFilter( filter );
 
+  typedef itk::RescaleIntensityImageFilter< IType, IType > ThresholdType;
+  ThresholdType::Pointer rescale = ThresholdType::New();
+  rescale->SetInput( filter->GetOutput() );
+  rescale->SetOutputMaximum( itk::NumericTraits< PType >::max() );
+  rescale->SetOutputMinimum( itk::NumericTraits< PType >::NonpositiveMin() );
+
   typedef itk::ImageFileWriter< IType > WriterType;
   WriterType::Pointer writer = WriterType::New();
-  writer->SetInput( filter->GetOutput() );
+  writer->SetInput( rescale->GetOutput() );
   writer->SetFileName( argv[2] );
+  writer->Update();
+
+  rescale->SetInput( distance->GetOutput() );
+  writer->SetFileName( argv[3] );
   writer->Update();
 
   return 0;

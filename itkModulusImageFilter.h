@@ -30,14 +30,14 @@ class ModulusTransform
 public:
   ModulusTransform() {}
   ~ModulusTransform() {}
-  void SetModulus( TOutput modulus ) { m_Modulus = modulus; }
+  void SetDividend( TOutput dividend ) { m_Dividend = dividend; }
   inline TOutput operator()( const TInput & x )
   {
-    TOutput  result = static_cast<TOutput>( x % m_Modulus );
+    TOutput  result = static_cast<TOutput>( x % m_Dividend );
     return result;
   }
 private:
-  TInput  m_Modulus;
+  TInput  m_Dividend;
 }; 
 
 }  // end namespace functor
@@ -78,8 +78,8 @@ public:
   /** Method for creation through the object factory. */
   itkNewMacro(Self);
   
-  itkSetMacro( Modulus, InputPixelType );
-  itkGetConstReferenceMacro( Modulus, InputPixelType );
+  itkSetMacro( Dividend, InputPixelType );
+  itkGetConstReferenceMacro( Dividend, InputPixelType );
 
   /** Print internal ivars */
   void PrintSelf(std::ostream& os, Indent indent) const;
@@ -95,7 +95,7 @@ private:
   ModulusImageFilter(const Self&); //purposely not implemented
   void operator=(const Self&); //purposely not implemented
 
-  InputPixelType        m_Modulus;
+  InputPixelType        m_Dividend;
 };
 
 

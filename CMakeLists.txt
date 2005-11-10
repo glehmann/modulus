@@ -46,5 +46,5 @@ TARGET_LINK_LIBRARIES(${CurrentExe} ${Libraries})
 #for this test.  Include as many tests as you like.  If your project doesn't have
 #any tests you can comment out or delete the following line.
 
-ADD_TEST(Modulus modulus ${CMAKE_SOURCE_DIR}/Spots.png out.png)
+ADD_TEST(Modulus modulus ${CMAKE_SOURCE_DIR}/Spots.png out.png distance.png)
 ADD_TEST(CompareImage ImageCompare out.png ${CMAKE_SOURCE_DIR}/modulus.png)
