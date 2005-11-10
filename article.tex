@@ -1,4 +1,4 @@
-\documentclass[12pt]{article}
+\documentclass[11pt]{article}
 \usepackage[dvips]{graphicx}
 
 \title{ModulusImageFilter} 
@@ -19,21 +19,21 @@ ModulusImageFilter is based on UnaryFunctorImageFilter and use the c++ modulus o
 \newlength{\indentation}\fi
 \setlength{\indentation}{0.5em}
 As usual, user has to include the header:
-\begin{flushleft}
+\begin{quote}
 {\tt \#include} "{\tt{}itkModulusImageFilter.h}"\mbox{}\\
-\end{flushleft}
+\end{quote}
 and declare the type, instanciate the filter, and set the input image
-\begin{flushleft}
+\begin{quote}
 {\bf typedef} itk::ModulusImageFilter$<$ InputType, OuputType $>$ ModulusType;\mbox{}\\
 ModulusType::Pointer filter = ModulusType::New();\mbox{}\\
 filter$\rightarrow$SetInput( filter$\rightarrow$GetOutput() );\mbox{}\\
-\end{flushleft}
+\end{quote}
 
 The dividend can be set with the SetDividend() method, and read with GetDividend(). The default value is 5.
 
-\begin{flushleft}
+\begin{quote}
 filter$\rightarrow$SetDividend( 12 );\mbox{}\\
-\end{flushleft}
+\end{quote}
 
 \section{Example}
 \begin{figure}
